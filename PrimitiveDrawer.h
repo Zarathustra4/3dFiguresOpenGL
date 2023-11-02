@@ -1,9 +1,11 @@
 #include "Point.h"
 #include "Edge.h"
 #include "EdgeFigure.h"
+#include "EdgeTypeEnum.h"
 #include <GL/glut.h>
 #include <iostream>
 #pragma once
+
 
 class PrimitiveDrawer
 {
@@ -21,6 +23,11 @@ private:
 			coordinates = pointsMatrix.getRow(startPoint.getIndex());
 			glColor3f(color[0], color[1], color[2]);
 
+			if (edge.getType() == DASHED) {
+				glEnable(GL_LINE_STIPPLE);
+				glLineStipple(1, 0x00FF); 
+			}
+
 			glBegin(GL_LINES);
 			glVertex3d(
 				coordinates[0], coordinates[1], coordinates[2]
@@ -30,7 +37,12 @@ private:
 			glVertex3d(
 				coordinates[0], coordinates[1], coordinates[2]
 			);
+			
 			glEnd();
+
+			if (edge.getType() == DASHED) {
+				glDisable(GL_LINE_STIPPLE);
+			}
 		}
 	}
 

@@ -131,6 +131,8 @@
     <ClCompile Include="EdgeFigure.cpp" />
     <ClCompile Include="EdgeFigureUtil.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="PlaneFigure.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PrimitiveDrawer.cpp" />
     <ClCompile Include="PrimitivesOnGlut.cpp" />
@@ -142,7 +144,10 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeFigure.h" />
     <ClInclude Include="EdgeFigureUtil.h" />
+    <ClInclude Include="EdgeTypeEnum.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="PlaneFigure.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PrimitiveDrawer.h" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "Point.h"
 #include "Matrix.h"
+#include "EdgeTypeEnum.h"
 #pragma once
 
 class Edge
@@ -8,6 +9,7 @@ private:
 	Point startPoint;
 	Point endPoint;
 	float color[3];
+	EdgeTypeEnum type;
 
 public:
 	Edge() {
@@ -24,6 +26,15 @@ public:
 		this->color[0] = color[0];
 		this->color[1] = color[1];
 		this->color[2] = color[2];
+	}
+
+	Edge(Point startPoint, Point endPoint, float color[3], EdgeTypeEnum type) {
+		this->startPoint = startPoint;
+		this->endPoint = endPoint;
+		this->color[0] = color[0];
+		this->color[1] = color[1];
+		this->color[2] = color[2];
+		this->type = type;
 	}
 
 	Edge(Point startPoint, Point endPoint) {
@@ -62,6 +73,10 @@ public:
 		this->color[0] = color[0];
 		this->color[1] = color[1];
 		this->color[2] = color[2];
+	}
+
+	EdgeTypeEnum getType() {
+		return type;
 	}
 };
 
