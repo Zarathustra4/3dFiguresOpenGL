@@ -1,5 +1,6 @@
 #include "EdgeFigureUtil.h"
 #include "EdgeTypeEnum.h"
+#include "PlaneTypeEnum.h"
 #include "Plane.h"
 #include "PlaneFigure.h"
 
@@ -100,4 +101,34 @@ PlaneFigure EdgeFigureUtil::getCube() {
     );
 
     return PlaneFigure(planes, cube, points);
+}
+
+PlaneFigure EdgeFigureUtil::getPlanePiramid() {
+    Matrix piramid = Matrix(6, 4);
+    setPiramidPoints(piramid);
+
+    float green[3] = { 0, 1, 0 };
+    float red[3] = { 1, 0, 0 };
+    float blue[3] = { 0, 0, 1 };
+    float yellow[3] = { 1, 1, 0 };
+    float black[3] = { 0, 0, 0 };
+
+    Point A = Point("A", 0, green);
+    Point B = Point("B", 1, blue);
+    Point C = Point("C", 2, green);
+    Point D = Point("D", 3, blue);
+    Point H = Point("H", 4, red);
+    Point O = Point("O", 5, black);
+
+    vector<Plane> planes = vector<Plane>(
+        {
+            Plane(vector<Point>({A, B, C, D}), black, MULTI_COLOR),
+            Plane(vector<Point>({A, B, H}), black, MULTI_COLOR),
+            Plane(vector<Point>({A, D, H}), black, MULTI_COLOR),
+            Plane(vector<Point>({D, C, H}), black, MULTI_COLOR),
+            Plane(vector<Point>({C, B, H}), black, MULTI_COLOR),
+        }
+    );
+
+    return PlaneFigure(planes, piramid, vector<Point>());
 }

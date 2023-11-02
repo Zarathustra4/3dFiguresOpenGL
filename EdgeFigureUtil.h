@@ -11,5 +11,7 @@ public:
 	static EdgeFigure getPiramid();
 
 	static PlaneFigure getCube();
+
+	static PlaneFigure getPlanePiramid();
 };
 

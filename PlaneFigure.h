@@ -36,5 +36,10 @@ public:
 	vector<Point> getPoints() {
 		return points;
 	}
+
+	void setMatrix(Matrix matrix) {
+		if (matrix.getShape() == pointsMatrix.getShape())
+			this->pointsMatrix = matrix;
+	}
 };
 

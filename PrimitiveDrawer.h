@@ -2,6 +2,7 @@
 #include "Edge.h"
 #include "EdgeFigure.h"
 #include "EdgeTypeEnum.h"
+#include "PlaneTypeEnum.h"
 #include "PlaneFigure.h"
 #include <GL/glut.h>
 #include <iostream>
@@ -66,6 +67,29 @@ private:
 		}
 	}
 
+	static void drawMultiColorPlane(Plane& plane, Matrix &pointsMatrix) {
+		vector<double> coordinates;
+		float color[3] = { 1, 0, 0 };
+		glBegin(GL_POLYGON);
+		for (Point point : plane.getPlanePoints()) {
+			coordinates = coordinates = pointsMatrix.getRow(point.getIndex());
+			point.getColor(color);
+			glColor3f(color[0], color[1], color[2]);
+			glVertex3f(coordinates[0], coordinates[1], coordinates[2]);
+		}
+		glEnd();
+	}
+
+	static void drawSingleColorPlane(Plane& plane, Matrix& pointsMatrix) {
+		vector<double> coordinates;
+		glBegin(GL_POLYGON);
+		for (Point point : plane.getPlanePoints()) {
+			coordinates = pointsMatrix.getRow(point.getIndex());
+			glVertex3d(coordinates[0], coordinates[1], coordinates[2]);
+		}
+		glEnd();
+	}
+
 	static void drawPlanes(vector<Plane>& planes, Matrix& pointsMatrix) {
 		vector<double> coordinates;
 		float color[3] = { 1, 0, 0 };
@@ -74,12 +98,16 @@ private:
 			plane.getColor(color);
 			glColor3f(color[0], color[1], color[2]);
 
-			glBegin(GL_POLYGON);
-			for (Point point : plane.getPlanePoints()) {
-				coordinates = pointsMatrix.getRow(point.getIndex());
-				glVertex3d(coordinates[0], coordinates[1], coordinates[2]);
+			switch (plane.getType())
+			{
+			case SINGLE_COLOR:
+				drawSingleColorPlane(plane, pointsMatrix);
+				break;
+			case MULTI_COLOR:
+				drawMultiColorPlane(plane, pointsMatrix);
+				break;
 			}
-			glEnd();
+			
 		}
 	}
 public:

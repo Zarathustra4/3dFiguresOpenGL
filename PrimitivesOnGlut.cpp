@@ -4,16 +4,20 @@
 
 #include <GL/glut.h>
 #include <math.h>
+#include <vector>
 #include "EdgeFigure.h"
 #include "EdgeFigureUtil.h"
 #include "PrimitiveDrawer.h"
 #include "PlaneFigure.h"
+#include "MatrixUtil.h"
 
 //------------------КОНСТАНТИ ТА ГЛОБАЛЬНІ ЗМІННІ-------------------------
 
 int Width = 800, Height = 800; //парметри вікна виводу
 #define Pi  3.1415926535897932384
 
+
+using std::vector;
 //-------------------Координатні осі--------------------------------------
 void coordinate_axis(void)
 {
@@ -74,11 +78,26 @@ void display(void) {
 	glColor3d(1, 0, 0);
 	//glutSolidSphere(1, 50, 50);//сфера
 
+	vector<double> moveVector1 = { 2, 0, 0 };
+	vector<double> moveVector2 = { -1.5, 0, 0 };
+
+	Matrix moveMatrix1 = MatrixUtil::vectorMove(moveVector1);
+	Matrix moveMatrix2 = MatrixUtil::vectorMove(moveVector2);
+
 	EdgeFigure piramid = EdgeFigureUtil::getPiramid();
+	piramid.setMatrix(
+		MatrixUtil::matrixProduct(piramid.getPointsMatrix(), moveMatrix1)
+	);
 	PrimitiveDrawer::drawEdgeFigure(piramid);
 
-	//PlaneFigure cube = EdgeFigureUtil::getCube();
-	//PrimitiveDrawer::drawPlaneFigure(cube);
+	PlaneFigure cube = EdgeFigureUtil::getCube();
+	PrimitiveDrawer::drawPlaneFigure(cube);
+
+	PlaneFigure planePiramid = EdgeFigureUtil::getPlanePiramid();
+	planePiramid.setMatrix(
+		MatrixUtil::matrixProduct(planePiramid.getPointsMatrix(), moveMatrix2)
+	);
+	PrimitiveDrawer::drawPlaneFigure(planePiramid);
 
 	//=======================================================================
 	glutSwapBuffers();
