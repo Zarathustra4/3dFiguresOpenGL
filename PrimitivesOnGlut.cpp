@@ -7,6 +7,7 @@
 #include "EdgeFigure.h"
 #include "EdgeFigureUtil.h"
 #include "PrimitiveDrawer.h"
+#include "PlaneFigure.h"
 
 //------------------ ŒÕ—“¿Õ“» “¿ √ÀŒ¡¿À‹Õ≤ «Ã≤ÕÕ≤-------------------------
 
@@ -75,6 +76,9 @@ void display(void) {
 
 	EdgeFigure piramid = EdgeFigureUtil::getPiramid();
 	PrimitiveDrawer::drawEdgeFigure(piramid);
+
+	//PlaneFigure cube = EdgeFigureUtil::getCube();
+	//PrimitiveDrawer::drawPlaneFigure(cube);
 
 	//=======================================================================
 	glutSwapBuffers();

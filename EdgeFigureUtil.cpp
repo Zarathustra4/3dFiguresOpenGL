@@ -1,5 +1,7 @@
 #include "EdgeFigureUtil.h"
 #include "EdgeTypeEnum.h"
+#include "Plane.h"
+#include "PlaneFigure.h"
 
 
 void setPiramidPoints(Matrix& piramid) {
@@ -45,4 +47,57 @@ EdgeFigure EdgeFigureUtil::getPiramid() {
     );
 
     return EdgeFigure(edges, piramidPoints, points);
+}
+
+void setCubePoints(Matrix& cube) {
+    cube.setRow(0, vector <double>({ 0, 0, 0, 1 }));
+    cube.setRow(1, vector <double>({ 1, 0, 0, 1 }));
+    cube.setRow(2, vector <double>({ 1, 1, 0, 1 }));
+    cube.setRow(3, vector <double>({ 0, 1, 0, 1 }));
+    cube.setRow(4, vector <double>({ 0, 0, 1, 1 }));
+    cube.setRow(5, vector <double>({ 0, 1, 1, 1 }));
+    cube.setRow(6, vector <double>({ 1, 1, 1, 1 }));
+    cube.setRow(7, vector <double>({ 1, 0, 1, 1 }));
+}
+
+PlaneFigure EdgeFigureUtil::getCube() {
+    //TODO: do something with it!!!
+    float green[3] = { 0, 1, 0 };
+    float red[3] = { 1, 0, 0 };
+    float blue[3] = { 0, 0, 1 };
+    float yellow[3] = { 1, 1, 0 };
+    float black[3] = { 0, 0, 0 };
+    float purple[3] = { 1, 0 , 1 };
+
+
+    Matrix cube = Matrix(8, 4);
+    setCubePoints(cube);
+
+
+    Point A = Point("A", 0, black);
+    Point B = Point("B", 1, black);
+    Point C = Point("C", 2, black);
+    Point D = Point("D", 3, black);
+    Point E = Point("E", 4, black);
+    Point F = Point("F", 5, black);
+    Point G = Point("G", 6, black);
+    Point J = Point("J", 7, black);
+
+
+    vector<Point> points = vector<Point>({
+            A, B, C, D, E, F, G, J
+        });
+
+    vector<Plane> planes = vector<Plane>(
+        {
+            Plane(vector<Point>({A, E, J, B}), green),
+            Plane(vector<Point>({E, F, G, J}), purple),
+            Plane(vector<Point>({A, E, F, D}), yellow),
+            Plane(vector<Point>({D, F, G, C}), green),
+            Plane(vector<Point>({A, B, C, D}), purple),
+            Plane(vector<Point>({B, J, G, C}), yellow)
+        }
+    );
+
+    return PlaneFigure(planes, cube, points);
 }

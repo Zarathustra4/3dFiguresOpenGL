@@ -2,6 +2,7 @@
 #include "Edge.h"
 #include "EdgeFigure.h"
 #include "EdgeTypeEnum.h"
+#include "PlaneFigure.h"
 #include <GL/glut.h>
 #include <iostream>
 #pragma once
@@ -46,7 +47,7 @@ private:
 		}
 	}
 
-	void static drawPoints(vector<Point>& points, Matrix& pointsMatrix) {
+	static void drawPoints(vector<Point>& points, Matrix& pointsMatrix) {
 		vector<double> coordinates;
 		float color[3] = { 1, 0, 0 };
 
@@ -64,6 +65,23 @@ private:
 			glEnd();
 		}
 	}
+
+	static void drawPlanes(vector<Plane>& planes, Matrix& pointsMatrix) {
+		vector<double> coordinates;
+		float color[3] = { 1, 0, 0 };
+
+		for (Plane plane : planes) {
+			plane.getColor(color);
+			glColor3f(color[0], color[1], color[2]);
+
+			glBegin(GL_POLYGON);
+			for (Point point : plane.getPlanePoints()) {
+				coordinates = pointsMatrix.getRow(point.getIndex());
+				glVertex3d(coordinates[0], coordinates[1], coordinates[2]);
+			}
+			glEnd();
+		}
+	}
 public:
 
 	static void drawEdgeFigure(EdgeFigure edgeFigure) {
@@ -77,6 +95,16 @@ public:
 		drawPoints(points, pointsMatrix);
 
 		drawLines(edges, pointsMatrix);
+	}
+
+	static void drawPlaneFigure(PlaneFigure figure) {
+		glPushMatrix();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		vector<Plane> planes = figure.getPlanes();
+		Matrix pointsMatrix = figure.getPointsMatrix();
+
+		drawPlanes(planes, pointsMatrix);
 	}
 };
 
