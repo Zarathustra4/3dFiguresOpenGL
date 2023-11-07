@@ -13,5 +13,9 @@ public:
 	static PlaneFigure getCube();
 
 	static PlaneFigure getPlanePiramid();
+
+	static EdgeFigure getBottle();
+
+	static EdgeFigure getColumnBottle();
 };
 

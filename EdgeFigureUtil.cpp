@@ -3,6 +3,8 @@
 #include "PlaneTypeEnum.h"
 #include "Plane.h"
 #include "PlaneFigure.h"
+#include <math.h>
+#define PI 3.14159265359
 
 
 void setPiramidPoints(Matrix& piramid) {
@@ -131,4 +133,109 @@ PlaneFigure EdgeFigureUtil::getPlanePiramid() {
     );
 
     return PlaneFigure(planes, piramid, vector<Point>());
+}
+
+double degreesToRadians(double angle) {
+    return angle * PI / 180;
+}
+
+EdgeFigure EdgeFigureUtil::getBottle() {
+    float green[3] = { 0, 1, 0 };
+    const int N = 20;
+    const double r1 = 1;
+    const double r2 = 3;
+    const double height = 4;
+
+    Matrix pointsMatrix = Matrix(N * 2, 4);
+    vector<Point> points = vector<Point>(0);
+    vector<Edge> edges = vector<Edge>(N);
+
+    double angle = 0;
+    double delta = 360 / N;
+
+    Point lower_point, upper_point;
+    vector<double> row = vector<double>(4);
+    Edge edge;
+    int point_idx;
+    for (int edge_idx = 0; edge_idx < N; edge_idx++) {
+        point_idx = edge_idx * 2;
+
+        lower_point = Point("Lower", point_idx, green);
+        row[0] = cos(degreesToRadians(angle)) * r1;
+        row[1] = sin(degreesToRadians(angle)) * r1;
+        row[2] = 0;
+        row[3] = 1;
+        pointsMatrix.setRow(point_idx, row);
+        //points[point_idx] = lower_point;
+
+
+        upper_point = Point("Upper", point_idx + 1, green);
+        row[0] = cos(degreesToRadians(angle)) * r2;
+        row[1] = sin(degreesToRadians(angle)) * r2;
+        row[2] = height;
+        row[3] = 1;
+        pointsMatrix.setRow(point_idx + 1, row);
+        //points[point_idx + 1] = upper_point;
+
+        edge = Edge(lower_point, upper_point, green, DASHED);
+        edges[edge_idx] = edge;
+        angle += delta;
+    }
+
+    return EdgeFigure(edges, pointsMatrix, points);
+}
+
+EdgeFigure EdgeFigureUtil::getColumnBottle() {
+    float green[3] = { 0, 1, 0 };
+    const int N = 20;
+    const double r1 = 1;
+    const double r2 = 3;
+    const double height = 4;
+
+    Matrix pointsMatrix = Matrix(N * 2, 4);
+    vector<Point> points = vector<Point>(0);
+    vector<Edge> edges = vector<Edge>(0);
+
+    double angle = 0;
+    double delta = 360 / N;
+
+    Point lower_point, upper_point, upper_prev_point, lower_prev_point;
+    vector<double> row = vector<double>(4);
+    Edge edge;
+    int point_idx;
+    for (int edge_idx = 0; edge_idx < N; edge_idx++) {
+        point_idx = edge_idx * 2;
+
+        lower_point = Point("Lower", point_idx, green);
+        row[0] = cos(degreesToRadians(angle)) * r1;
+        row[1] = sin(degreesToRadians(angle)) * r1;
+        row[2] = 0;
+        row[3] = 1;
+        pointsMatrix.setRow(point_idx, row);
+
+
+        upper_point = Point("Upper", point_idx + 1, green);
+        row[0] = cos(degreesToRadians(angle)) * r2;
+        row[1] = sin(degreesToRadians(angle)) * r2;
+        row[2] = height;
+        row[3] = 1;
+        pointsMatrix.setRow(point_idx + 1, row);
+
+        if (edge_idx == 0) {
+            lower_prev_point = Point("lower", N * 2 - 2, green);
+            upper_prev_point = Point("upper", N * 2 - 1, green);
+        } 
+        else {
+            lower_prev_point = Point("lower", point_idx - 2, green);
+            upper_prev_point = Point("upper", point_idx - 1, green);
+        }
+
+        edges.push_back( Edge(lower_point, upper_point, green, DASHED) );
+        edges.push_back(Edge(lower_point, lower_prev_point, green));
+        edges.push_back(Edge(upper_prev_point, upper_point, green));
+        angle += delta;
+    }
+    
+
+    return EdgeFigure(edges, pointsMatrix, points);
 }

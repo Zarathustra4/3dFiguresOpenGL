@@ -78,7 +78,7 @@ void display(void) {
 	glColor3d(1, 0, 0);
 	//glutSolidSphere(1, 50, 50);//ספונא
 
-	vector<double> moveVector1 = { 2, 0, 0 };
+	/*vector<double> moveVector1 = { 2, 0, 0 };
 	vector<double> moveVector2 = { -1.5, 0, 0 };
 
 	Matrix moveMatrix1 = MatrixUtil::vectorMove(moveVector1);
@@ -97,7 +97,10 @@ void display(void) {
 	planePiramid.setMatrix(
 		MatrixUtil::matrixProduct(planePiramid.getPointsMatrix(), moveMatrix2)
 	);
-	PrimitiveDrawer::drawPlaneFigure(planePiramid);
+	PrimitiveDrawer::drawPlaneFigure(planePiramid);*/
+
+	EdgeFigure bottle = EdgeFigureUtil::getColumnBottle();
+	PrimitiveDrawer::drawEdgeFigure(bottle);
 
 	//=======================================================================
 	glutSwapBuffers();

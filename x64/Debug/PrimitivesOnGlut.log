@@ -1,17 +1,2 @@
-﻿  PrimitivesOnGlut.cpp
-E:\Programming\GraphicsPNU\PrimitivesOnGlut\PrimitivesOnGlut\PrimitiveDrawer.h(78,60): warning C4244: 'argument': conversion from '_Ty' to 'GLfloat', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-E:\Programming\GraphicsPNU\PrimitivesOnGlut\PrimitivesOnGlut\PrimitiveDrawer.h(78,44): warning C4244: 'argument': conversion from '_Ty' to 'GLfloat', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-E:\Programming\GraphicsPNU\PrimitivesOnGlut\PrimitivesOnGlut\PrimitiveDrawer.h(78,28): warning C4244: 'argument': conversion from '_Ty' to 'GLfloat', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
+﻿  EdgeFigureUtil.cpp
   PrimitivesOnGlut.vcxproj -> E:\Programming\GraphicsPNU\PrimitivesOnGlut\x64\Debug\PrimitivesOnGlut.exe
